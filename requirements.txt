@@ -1,0 +1,9 @@
+# Pinned: the image is built the same on every host (amd64 and arm64 wheels)
+faster-whisper==1.2.1
+ctranslate2==4.8.5
+# faster-whisper 1.2.1 opens files with metadata_errors=, which PyAV 15 removed; 14.2 is the last 14.x with Linux wheels
+av==14.2.0
+onnxruntime==1.31.1
+tokenizers==0.23.3
+huggingface-hub==1.33.0
+numpy==2.5.4
