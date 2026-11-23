@@ -12,7 +12,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     HF_HUB_DISABLE_TELEMETRY=1
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r /app/requirements.txt \
-    && useradd --system --uid 10050 --home /models whisper \
+    && useradd --system --uid 10060 --home /models whisper \
     && mkdir -p /models && chown whisper /models
 COPY mercurius_whisper /app/mercurius_whisper
 WORKDIR /app
