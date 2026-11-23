@@ -1,0 +1,30 @@
+[project]
+name = "mercurius-whisper"
+version = "0.1.0"
+description = "Speech to text on this host for the Mercurius agent: faster-whisper behind an OpenAI-compatible API"
+license = "MIT"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S"]
+ignore = ["S104"]  # the service listens on all addresses of its container
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S105", "S106"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["mercurius_whisper"]
+
+[[tool.mypy.overrides]]
+module = ["faster_whisper"]
+ignore_missing_imports = true

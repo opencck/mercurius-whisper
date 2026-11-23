@@ -1,0 +1,33 @@
+name: CI
+
+# Economical by design: one job, no model and no network beyond pip; the image is not built here.
+# Changes only in *.md do not run it, superseded runs are cancelled.
+on:
+  push:
+    branches: [master]
+    paths-ignore: ['**.md']
+  pull_request:
+    branches: [master]
+    paths-ignore: ['**.md']
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pytest==8.4.2 ruff==0.14.5 mypy==2.4.1
+      - run: ruff check .
+      - run: mypy
+      - run: python -m pytest -q
